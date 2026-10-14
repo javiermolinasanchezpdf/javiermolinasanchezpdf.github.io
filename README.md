@@ -1,1 +1,1 @@
-# javiermolinasanchezpdf.github.io
+Desde hoy vamos a intentar digitalizar una empresa llamada "Tienda Alma de la Sagra" en Granada de productos de la Puebla de Don Fadrique. En esta página se intentara lo máximo posible vender productos artesanales, tradicionales y del propio equipo del pueblo. También se darán visitas guiadas por el pueblo, subida a la Sagra, Vía ferrata de la Piedra de la rendija y subida a la famosa Ermita de las Santas patronas Alodía y Nunilón del monte. Además de esto con lo productos se explicara la historia de nuestras fiestas tradicionales.
