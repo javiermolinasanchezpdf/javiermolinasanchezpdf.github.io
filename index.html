@@ -1,11 +1,761 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
-    <title>Tienda la Sagra </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sabores de la Sagra | Artesanía Tradicional de Puebla de Don Fadrique</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        sagra: {
+                            terracota: '#B2533E',
+                            oliva: '#4A5D4E',
+                            olivaDark: '#2C3A2E',
+                            madera: '#8C6239',
+                            arena: '#F9F6F0',
+                            crema: '#EFEBE4',
+                            dorado: '#D4AF37'
+                        }
+                    },
+                    fontFamily: {
+                        titulo: ['Cinzel', 'serif'],
+                        cuerpo: ['Plus Jakarta Sans', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #F9F6F0;
+            color: #2C3A2E;
+        }
+        .font-titulo {
+            font-family: 'Cinzel', serif;
+        }
+        .bg-hero {
+            background: linear-gradient(rgba(44, 58, 46, 0.7), rgba(44, 58, 46, 0.85)), url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=1920&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #EFEBE4;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #8C6239;
+            border-radius: 4px;
+        }
+    </style>
 </head>
-<body>
-    <h1>Esta es una empresa dedicada al producto local y tradicional de la Puebla de Don Fadrique en la que a demás atraves de los productos contaremos su historia a demás estos productos podran comprarse atraves de esta web</h1>
-<h2>Empezara a funcionar pronto...</h2>
-</body>
-</html>
+<body class="antialiased selection:bg-sagra-terracota selection:text-white">
+
+    <!-- Navegación -->
+    <nav class="sticky top-0 z-40 bg-sagra-arena/95 backdrop-blur border-b border-sagra-madera/20 transition-all duration-300 shadow-sm" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex items-center space-x-3 cursor-pointer" onclick="window.scrollTo({top:0, behavior:'smooth'})">
+                    <div class="w-10 h-10 rounded-full bg-sagra-terracota flex items-center justify-center text-white font-titulo text-xl font-bold shadow-md">
+                        S
+                    </div>
+                    <div>
+                        <span class="font-titulo text-xl font-bold text-sagra-olivaDark block tracking-wider leading-tight">SABORES DE LA SAGRA</span>
+                        <span class="text-xs text-sagra-madera font-medium tracking-widest block uppercase">Puebla de Don Fadrique</span>
+                    </div>
+                </div>
+
+                <!-- Menú Desktop -->
+                <div class="hidden md:flex items-center space-x-8 font-medium text-sm text-sagra-olivaDark">
+                    <a href="#historia" class="hover:text-sagra-terracota transition-colors">Nuestra Historia</a>
+                    <a href="#productos" class="hover:text-sagra-terracota transition-colors">Productos Tradicionales</a>
+                    <a href="#proceso" class="hover:text-sagra-terracota transition-colors">El Proceso</a>
+                    <a href="#testimonios" class="hover:text-sagra-terracota transition-colors">Opiniones</a>
+                    <a href="#contacto" class="hover:text-sagra-terracota transition-colors">Ubicación</a>
+                </div>
+
+                <!-- Carrito Icon -->
+                <div class="flex items-center space-x-4">
+                    <button onclick="toggleCart()" class="relative p-2.5 rounded-full bg-sagra-crema hover:bg-sagra-terracota hover:text-white text-sagra-olivaDark transition-all duration-300 shadow-sm">
+                        <i class="fa-solid fa-basket-shopping text-lg"></i>
+                        <span id="cart-count" class="absolute -top-1 -right-1 bg-sagra-terracota text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center border-2 border-sagra-arena">0</span>
+                    </button>
+
+                    <!-- Hamburguesa Móvil -->
+                    <button onclick="toggleMobileMenu()" class="md:hidden p-2 text-sagra-olivaDark focus:outline-none">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Menú Móvil -->
+        <div id="mobile-menu" class="hidden md:hidden bg-sagra-crema border-b border-sagra-madera/20 px-4 pt-2 pb-4 space-y-3">
+            <a href="#historia" onclick="toggleMobileMenu()" class="block py-2 text-sagra-olivaDark font-medium hover:text-sagra-terracota">Nuestra Historia</a>
+            <a href="#productos" onclick="toggleMobileMenu()" class="block py-2 text-sagra-olivaDark font-medium hover:text-sagra-terracota">Productos Tradicionales</a>
+            <a href="#proceso" onclick="toggleMobileMenu()" class="block py-2 text-sagra-olivaDark font-medium hover:text-sagra-terracota">El Proceso</a>
+            <a href="#testimonios" onclick="toggleMobileMenu()" class="block py-2 text-sagra-olivaDark font-medium hover:text-sagra-terracota">Opiniones</a>
+            <a href="#contacto" onclick="toggleMobileMenu()" class="block py-2 text-sagra-olivaDark font-medium hover:text-sagra-terracota">Ubicación</a>
+        </div>
+    </nav>
+
+    <!-- Hero Banner -->
+    <header class="relative bg-hero text-white py-24 lg:py-36 min-h-[85vh] flex items-center justify-center">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+            <div class="inline-flex items-center space-x-2 bg-sagra-dorado/20 backdrop-blur-md border border-sagra-dorado/40 px-4 py-1.5 rounded-full text-sagra-dorado text-sm font-medium mb-6">
+                <i class="fa-solid fa-mountain"></i>
+                <span>Al pie de la majestuosa Sierra de la Sagra (2.383 m)</span>
+            </div>
+            <h1 class="font-titulo text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-sagra-arena leading-tight mb-6">
+                El Alma Gastronómica de <br/><span class="text-sagra-dorado">Puebla de Don Fadrique</span>
+            </h1>
+            <p class="text-lg sm:text-xl text-sagra-crema/90 max-w-3xl mx-auto mb-10 font-light leading-relaxed">
+                Descubre embutidos de cordero segureño, la ancestral liofalla, miel pura de alta montaña y aceites centenarios elaborados con el saber hacer transmitido de generación en generación.
+            </p>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="#productos" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-sagra-terracota hover:bg-opacity-90 text-white font-semibold transition-all duration-300 shadow-lg hover:shadow-sagra-terracota/30 flex items-center justify-center space-x-2">
+                    <span>Explorar la Despensa</span>
+                    <i class="fa-solid fa-arrow-right text-sm"></i>
+                </a>
+                <a href="#historia" class="w-full sm:w-auto px-8 py-4 rounded-xl border-2 border-sagra-crema/40 hover:bg-sagra-crema/10 text-sagra-crema font-semibold backdrop-blur-sm transition-all duration-300">
+                    Conoce Nuestra Tradición
+                </a>
+            </div>
+        </div>
+        
+        <!-- Decorativo Curva Bottom -->
+        <div class="absolute bottom-0 left-0 right-0 h-12 bg-sagra-arena clip-path-hero" style="clip-path: polygon(0 100%, 100% 100%, 100% 0);"></div>
+    </header>
+
+    <!-- Historia de Puebla de Don Fadrique y la Tradición -->
+    <section id="historia" class="py-20 bg-sagra-arena">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 gap-12 lg:gap-16 items-center">
+                <div class="space-y-6">
+                    <div class="inline-block text-sagra-terracota font-bold text-sm tracking-wider uppercase border-b-2 border-sagra-terracota pb-1">
+                        Tierra de Frontera y Tradición Pastoril
+                    </div>
+                    <h2 class="font-titulo text-3xl sm:text-4xl font-bold text-sagra-olivaDark">
+                        Historia escrita entre la nieve y el sol de la Sagra
+                    </h2>
+                    <p class="text-sagra-olivaDark/80 leading-relaxed">
+                        En el extremo noreste de la provincia de Granada, resguardada por la impotente silueta de la Sierra de la Sagra, se halla **Puebla de Don Fadrique** (antiguamente *Bolteruela*). Lugar de paso histórico entre el Reino de Granada y el Levante, nuestra villa ha sido bendecida con un microclima de inviernos gélidos y veranos suaves.
+                    </p>
+                    <p class="text-sagra-olivaDark/80 leading-relaxed">
+                        Esta peculiar geografía dio origen a una rica herencia gastronómica ligada al pastoreo de la **raza ovina Segureña**, a la apicultura de alta montaña y a la curación natural del embutido impulsada por los aires limpios de la sierra. Aquí, la cocina no es solo alimento; es un ritual de supervivencia, convivencia y orgullo poblao.
+                    </p>
+
+                    <div class="grid grid-cols-2 gap-4 pt-4 border-t border-sagra-madera/20">
+                        <div>
+                            <span class="block font-titulo text-2xl font-bold text-sagra-terracota">100% IGP</span>
+                            <span class="text-xs text-sagra-olivaDark/70">Cordero Segureño Certificado</span>
+                        </div>
+                        <div>
+                            <span class="block font-titulo text-2xl font-bold text-sagra-terracota">+1.100m</span>
+                            <span class="text-xs text-sagra-olivaDark/70">Altitud de Curación Natural</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="relative">
+                    <div class="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white">
+                        <img src="https://images.unsplash.com/photo-1541888946425-d0fbb186a5b3?q=80&w=800&auto=format&fit=crop" alt="Entorno rural y tradición" class="w-full h-96 object-cover hover:scale-105 transition-transform duration-700">
+                    </div>
+                    <!-- Badge superpuesto -->
+                    <div class="absolute -bottom-6 -left-6 bg-sagra-oliva text-white p-6 rounded-2xl shadow-xl max-w-xs hidden sm:block">
+                        <i class="fa-solid fa-quote-left text-2xl text-sagra-dorado mb-2"></i>
+                        <p class="text-xs italic">"Conservamos las recetas ancestrales de la Liofalla y la Colodra tal como las hacían nuestros abuelos en los cortijos."</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Catálogo de Productos -->
+    <section id="productos" class="py-20 bg-sagra-crema">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-sagra-terracota font-bold text-sm tracking-wider uppercase">Nuestra Despensa Artesanal</span>
+                <h2 class="font-titulo text-3xl sm:text-4xl font-bold text-sagra-olivaDark mt-2">Productos Estrella de Puebla de Don Fadrique</h2>
+                <p class="text-sagra-olivaDark/70 mt-4">Haz clic en cualquier producto para descubrir su historia ancestral, receta y tradición artesana.</p>
+            </div>
+
+            <!-- Grid Productos -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="products-grid">
+                <!-- Se llena dinámicamente mediante JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Proceso Artesanal: De la Sierra a tu Mesa -->
+    <section id="proceso" class="py-20 bg-sagra-olivaDark text-white relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-sagra-dorado font-bold text-sm tracking-wider uppercase">Calidad y Respeto</span>
+                <h2 class="font-titulo text-3xl sm:text-4xl font-bold mt-2">De la Sierra de la Sagra a tu Mesa</h2>
+                <p class="text-sagra-crema/70 mt-4">Un proceso 100% natural, respetuoso con los tiempos de maduración y con el entorno natural que nos rodea.</p>
+            </div>
+
+            <div class="grid md:grid-cols-4 gap-8 text-center">
+                <!-- Paso 1 -->
+                <div class="bg-sagra-oliva/40 p-6 rounded-2xl border border-sagra-oliva/60 relative">
+                    <div class="w-14 h-14 bg-sagra-terracota text-white font-titulo font-bold text-xl rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">1</div>
+                    <h3 class="font-titulo font-bold text-lg mb-2 text-sagra-dorado">Pastoreo y Crianza</h3>
+                    <p class="text-sm text-sagra-crema/80">Ganado criado en libertad en los prados de la Sagra, alimentado con tomillo, romero y pastos autóctonos.</p>
+                </div>
+                <!-- Paso 2 -->
+                <div class="bg-sagra-oliva/40 p-6 rounded-2xl border border-sagra-oliva/60 relative">
+                    <div class="w-14 h-14 bg-sagra-terracota text-white font-titulo font-bold text-xl rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">2</div>
+                    <h3 class="font-titulo font-bold text-lg mb-2 text-sagra-dorado">Recetas Heredadas</h3>
+                    <p class="text-sm text-sagra-crema/80">Aliños tradicionales con especias naturales, sin aditivos artificiales ni prisas industriales.</p>
+                </div>
+                <!-- Paso 3 -->
+                <div class="bg-sagra-oliva/40 p-6 rounded-2xl border border-sagra-oliva/60 relative">
+                    <div class="w-14 h-14 bg-sagra-terracota text-white font-titulo font-bold text-xl rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">3</div>
+                    <h3 class="font-titulo font-bold text-lg mb-2 text-sagra-dorado">Curación de Montaña</h3>
+                    <p class="text-sm text-sagra-crema/80">Secaderos situados a más de 1.100 m de altitud, donde el aire seco y frío realiza el milagro.</p>
+                </div>
+                <!-- Paso 4 -->
+                <div class="bg-sagra-oliva/40 p-6 rounded-2xl border border-sagra-oliva/60 relative">
+                    <div class="w-14 h-14 bg-sagra-terracota text-white font-titulo font-bold text-xl rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">4</div>
+                    <h3 class="font-titulo font-bold text-lg mb-2 text-sagra-dorado">Envasado y Envío</h3>
+                    <p class="text-sm text-sagra-crema/80">Preparado cuidadosamente a mano para mantener intactas todas sus propiedades organolépticas.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonios -->
+    <section id="testimonios" class="py-20 bg-sagra-arena">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-sagra-terracota font-bold text-sm tracking-wider uppercase">Lo que dicen nuestros clientes</span>
+                <h2 class="font-titulo text-3xl sm:text-4xl font-bold text-sagra-olivaDark mt-2">Sabores que Enamoran</h2>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Testimonio 1 -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-sagra-madera/10 relative">
+                    <div class="flex text-sagra-dorado text-sm mb-4">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="text-sagra-olivaDark/80 italic text-sm mb-6">"El relleno de cordero y la liofalla me trasladaron directamente a las matanzas que hacía mi abuela en Puebla de Don Fadrique. Una autencidad que ya no se encuentra."</p>
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-full bg-sagra-terracota text-white font-bold flex items-center justify-center">MC</div>
+                        <div>
+                            <span class="block font-bold text-sagra-olivaDark text-sm">María Carmen Gómez</span>
+                            <span class="text-xs text-sagra-olivaDark/60">Granada</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonio 2 -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-sagra-madera/10 relative">
+                    <div class="flex text-sagra-dorado text-sm mb-4">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="text-sagra-olivaDark/80 italic text-sm mb-6">"La Miel de la Sagra tiene una densidad y aroma a tomillo impresionante. Y el envío rápido. Da gusto apoyar a pequeños productores de pueblo."</p>
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-full bg-sagra-oliva text-white font-bold flex items-center justify-center">AN</div>
+                        <div>
+                            <span class="block font-bold text-sagra-olivaDark text-sm">Antonio Navarro</span>
+                            <span class="text-xs text-sagra-olivaDark/60">Murcia</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonio 3 -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-sagra-madera/10 relative">
+                    <div class="flex text-sagra-dorado text-sm mb-4">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="text-sagra-olivaDark/80 italic text-sm mb-6">"Probar el Licor de Colodra tras una cena copiosa fue todo un descubrimiento. Un sabor suave con matices herbales deliciosos."</p>
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-full bg-sagra-madera text-white font-bold flex items-center justify-center">JS</div>
+                        <div>
+                            <span class="block font-bold text-sagra-olivaDark text-sm">Javier Sánchez</span>
+                            <span class="text-xs text-sagra-olivaDark/60">Madrid</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Contacto y Ubicación -->
+    <section id="contacto" class="py-20 bg-sagra-crema border-t border-sagra-madera/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-12">
+                <!-- Formulario -->
+                <div class="bg-white p-8 rounded-2xl shadow-md border border-sagra-madera/10">
+                    <h3 class="font-titulo text-2xl font-bold text-sagra-olivaDark mb-2">Ponte en contacto con nosotros</h3>
+                    <p class="text-sm text-sagra-olivaDark/70 mb-6">¿Tienes dudas sobre los productos, envíos o quieres realizar un pedido especial?</p>
+                    
+                    <form onsubmit="handleContact(event)" class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-bold text-sagra-olivaDark uppercase mb-1">Nombre Completo</label>
+                            <input type="text" required class="w-full px-4 py-3 rounded-lg border border-sagra-crema bg-sagra-arena focus:outline-none focus:ring-2 focus:ring-sagra-terracota text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-sagra-olivaDark uppercase mb-1">Correo Electrónico</label>
+                            <input type="email" required class="w-full px-4 py-3 rounded-lg border border-sagra-crema bg-sagra-arena focus:outline-none focus:ring-2 focus:ring-sagra-terracota text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-sagra-olivaDark uppercase mb-1">Mensaje</label>
+                            <textarea rows="4" required class="w-full px-4 py-3 rounded-lg border border-sagra-crema bg-sagra-arena focus:outline-none focus:ring-2 focus:ring-sagra-terracota text-sm"></textarea>
+                        </div>
+                        <button type="submit" class="w-full py-3.5 bg-sagra-olivaDark hover:bg-sagra-terracota text-white font-semibold rounded-lg transition-colors duration-300">
+                            Enviar Mensaje
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Info Ubicación -->
+                <div class="space-y-6 flex flex-col justify-between">
+                    <div>
+                        <h3 class="font-titulo text-2xl font-bold text-sagra-olivaDark mb-4">Visítanos en la Puebla</h3>
+                        <p class="text-sagra-olivaDark/80 leading-relaxed mb-6">
+                            Nuestra tienda artesanal se encuentra en pleno casco histórico de Puebla de Don Fadrique, a las faldas de la Sagra. Ven a conocer nuestro secadero y a catar nuestros productos.
+                        </p>
+
+                        <div class="space-y-4">
+                            <div class="flex items-start space-x-3">
+                                <div class="w-8 h-8 rounded-full bg-sagra-terracota/10 text-sagra-terracota flex items-center justify-center shrink-0 mt-1">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                </div>
+                                <div>
+                                    <span class="block font-bold text-sagra-olivaDark text-sm">Dirección</span>
+                                    <span class="text-sm text-sagra-olivaDark/70">Calle Real, 14, 18820 Puebla de Don Fadrique, Granada</span>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start space-x-3">
+                                <div class="w-8 h-8 rounded-full bg-sagra-terracota/10 text-sagra-terracota flex items-center justify-center shrink-0 mt-1">
+                                    <i class="fa-solid fa-phone"></i>
+                                </div>
+                                <div>
+                                    <span class="block font-bold text-sagra-olivaDark text-sm">Teléfono & WhatsApp</span>
+                                    <span class="text-sm text-sagra-olivaDark/70">+34 958 72 10 00 / +34 600 12 34 56</span>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start space-x-3">
+                                <div class="w-8 h-8 rounded-full bg-sagra-terracota/10 text-sagra-terracota flex items-center justify-center shrink-0 mt-1">
+                                    <i class="fa-solid fa-clock"></i>
+                                </div>
+                                <div>
+                                    <span class="block font-bold text-sagra-olivaDark text-sm">Horario de Atención</span>
+                                    <span class="text-sm text-sagra-olivaDark/70">Lunes a Sábado: 9:00 - 14:00 y 17:00 - 20:00</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mapa representativo -->
+                    <div class="w-full h-48 bg-sagra-oliva/10 rounded-2xl overflow-hidden border border-sagra-madera/20 flex items-center justify-center relative">
+                        <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover opacity-60" alt="Mapa">
+                        <div class="absolute bg-white/90 backdrop-blur-sm px-4 py-2 rounded-xl text-center shadow-lg">
+                            <i class="fa-solid fa-map-pin text-sagra-terracota text-xl mb-1"></i>
+                            <span class="block text-xs font-bold text-sagra-olivaDark">Puebla de Don Fadrique</span>
+                            <span class="text-[10px] text-sagra-olivaDark/70">Sierra de la Sagra</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-sagra-olivaDark text-sagra-crema/80 py-12 border-t border-sagra-oliva">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center sm:text-left">
+            <div class="grid sm:grid-cols-3 gap-8 mb-8">
+                <div>
+                    <h4 class="font-titulo text-lg font-bold text-white mb-3">Sabores de la Sagra</h4>
+                    <p class="text-xs text-sagra-crema/60 leading-relaxed">
+                        Fomentando la cultura, la gastronomía y la tradición viva de Puebla de Don Fadrique. Artesanía gastronómica directa del productor.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-titulo text-lg font-bold text-white mb-3">Enlaces Rápidos</h4>
+                    <ul class="space-y-2 text-xs">
+                        <li><a href="#historia" class="hover:text-sagra-dorado">Tradición Poblaa</a></li>
+                        <li><a href="#productos" class="hover:text-sagra-dorado">Embutidos de Cordero Segureño</a></li>
+                        <li><a href="#productos" class="hover:text-sagra-dorado">Liofalla y Licores</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-titulo text-lg font-bold text-white mb-3">Garantía Tradicional</h4>
+                    <p class="text-xs text-sagra-crema/60">
+                        Productos elaborados de forma manual respetando el bienestar animal, el medio ambiente de la comarca de Huéscar y la Sierra de la Sagra.
+                    </p>
+                </div>
+            </div>
+            <div class="border-t border-sagra-oliva/50 pt-6 flex flex-col sm:flex-row justify-between items-center text-xs text-sagra-crema/50">
+                <p>&copy; 2026 Sabores de la Sagra - Puebla de Don Fadrique (Granada). Todos los derechos reservados.</p>
+                <p class="mt-2 sm:mt-0">Diseñado con Pasión Serrana</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- MODAL DETALLE DE PRODUCTO (Historia e Ingredientes) -->
+    <div id="product-modal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4 transition-opacity">
+        <div class="bg-sagra-arena w-full max-w-2xl rounded-2xl overflow-hidden shadow-2xl border border-sagra-madera/20 max-h-[90vh] flex flex-col relative animate-fade-in">
+            <!-- Botón Cerrar -->
+            <button onclick="closeProductModal()" class="absolute top-4 right-4 z-10 w-9 h-9 rounded-full bg-black/40 text-white flex items-center justify-center hover:bg-sagra-terracota transition-colors">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="overflow-y-auto custom-scrollbar">
+                <div class="relative h-64 sm:h-72">
+                    <img id="modal-img" src="" alt="" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-sagra-olivaDark via-transparent to-transparent"></div>
+                    <div class="absolute bottom-4 left-6 right-6 text-white">
+                        <span id="modal-category" class="text-xs uppercase tracking-widest text-sagra-dorado font-semibold"></span>
+                        <h3 id="modal-title" class="font-titulo text-2xl sm:text-3xl font-bold"></h3>
+                    </div>
+                </div>
+
+                <div class="p-6 space-y-6">
+                    <div>
+                        <h4 class="font-titulo text-lg font-bold text-sagra-terracota flex items-center space-x-2">
+                            <i class="fa-solid fa-book-open"></i>
+                            <span>La Historia y Tradición de este Producto</span>
+                        </h4>
+                        <p id="modal-history" class="text-sagra-olivaDark/80 text-sm leading-relaxed mt-2"></p>
+                    </div>
+
+                    <div class="grid sm:grid-cols-2 gap-4 bg-sagra-crema p-4 rounded-xl border border-sagra-madera/10">
+                        <div>
+                            <span class="block text-xs font-bold text-sagra-olivaDark uppercase mb-1">Ingredientes Naturales</span>
+                            <p id="modal-ingredients" class="text-xs text-sagra-olivaDark/80"></p>
+                        </div>
+                        <div>
+                            <span class="block text-xs font-bold text-sagra-olivaDark uppercase mb-1">Maridaje o Recomendación</span>
+                            <p id="modal-pairing" class="text-xs text-sagra-olivaDark/80"></p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center justify-between pt-4 border-t border-sagra-madera/20">
+                        <div>
+                            <span class="text-xs text-sagra-olivaDark/60 block">Precio artesanal</span>
+                            <span id="modal-price" class="text-2xl font-bold text-sagra-olivaDark font-titulo"></span>
+                        </div>
+                        <button id="modal-add-btn" class="px-6 py-3 bg-sagra-terracota hover:bg-sagra-terracota/90 text-white font-semibold rounded-xl transition-colors shadow-md flex items-center space-x-2">
+                            <i class="fa-solid fa-basket-shopping"></i>
+                            <span>Añadir al Carrito</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- DRAWER DEL CARRITO SIMULADO -->
+    <div id="cart-drawer" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm hidden transition-opacity">
+        <div class="absolute right-0 top-0 bottom-0 w-full max-w-md bg-sagra-arena shadow-2xl flex flex-col">
+            <!-- Header Carrito -->
+            <div class="p-6 bg-sagra-olivaDark text-white flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <i class="fa-solid fa-basket-shopping text-sagra-dorado text-xl"></i>
+                    <h3 class="font-titulo text-xl font-bold">Cesta Serrana</h3>
+                </div>
+                <button onclick="toggleCart()" class="text-sagra-crema/70 hover:text-white">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
+            </div>
+
+            <!-- Lista de items -->
+            <div id="cart-items" class="flex-1 overflow-y-auto p-6 space-y-4 custom-scrollbar">
+                <!-- Se llena con JS -->
+            </div>
+
+            <!-- Footer Carrito -->
+            <div class="p-6 bg-sagra-crema border-t border-sagra-madera/20 space-y-4">
+                <div class="flex justify-between items-center font-bold text-sagra-olivaDark">
+                    <span>Total Estimado:</span>
+                    <span id="cart-total" class="text-2xl font-titulo text-sagra-terracota">0,00 €</span>
+                </div>
+                <p class="text-[11px] text-sagra-olivaDark/60">Envíos refrigerados a toda la península en 24/48h para garantizar el estado fresco de los embutidos y quesos.</p>
+                <button onclick="checkout()" class="w-full py-4 bg-sagra-terracota hover:bg-sagra-terracota/90 text-white font-bold rounded-xl transition-colors shadow-lg flex items-center justify-center space-x-2">
+                    <i class="fa-solid fa-check"></i>
+                    <span>Finalizar Pedido</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- NOTIFICACIÓN DE MENSAJE -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 bg-sagra-olivaDark text-white px-6 py-4 rounded-xl shadow-2xl transform translate-y-20 opacity-0 transition-all duration-300 flex items-center space-x-3">
+        <i class="fa-solid fa-circle-check text-sagra-dorado text-xl"></i>
+        <span id="toast-message" class="text-sm font-medium"></span>
+    </div>
+
+    <!-- SCRIPT DE PRODUCTOS Y LÓGICA DE NEGOCIO -->
+    <script>
+        // Datos de los Productos Típicos de Puebla de Don Fadrique
+        const productos = [
+            {
+                id: '1',
+                nombre: 'Relleno de Cordero Segureño',
+                categoria: 'Embutido Tradicional',
+                precio: 14.50,
+                formato: 'Pieza de ~400g',
+                imagen: 'https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=800&auto=format&fit=crop',
+                historia: 'El Relleno de Cordero es el rey indiscutible de la charcutería poblaa. Nació como una receta festiva de la matanza local. Se elabora curando carne picada magra de Cordero Segureño (IGP) mezclada con jamón picado, pan rallado, huevo, ajo y perejil, embuchada en tripa natural. Se consume curado en lonchas o cocido en los tradicionales potajes de la Sagra.',
+                ingredientes: 'Carne picada de Cordero Segureño IGP, panceta, huevo, pan rallado, ajo, perejil, pimentón y especias naturales.',
+                maridaje: 'Ideal acompañado de un vino tinto de la tierra o una cerveza de malta intensa.'
+            },
+            {
+                id: '2',
+                nombre: 'Liofalla de la Sagra',
+                categoria: 'Especialidad Local',
+                precio: 11.80,
+                formato: 'Envase al vacío ~350g',
+                imagen: 'https://images.unsplash.com/photo-151494426075a-f129f17c6794?q=80&w=800&auto=format&fit=crop',
+                historia: 'La Liofalla es un manjar único y autóctono de Puebla de Don Fadrique. Se trata de un guiso embutido curado a base de panceta, asaduras de cordero, harina de almortas o trigo y Especias de la Sagra. Tradicionalmente era el almuerzo reconfortante de los pastores que pasaban largas semanas a más de 1.500 metros de altitud guardando los rebaños.',
+                ingredientes: 'Asadura y panceta de cordero, harina tradicional, ajo, pimentón de la Vera, clavo y comino.',
+                maridaje: 'Calentar ligeramente en sartén y acompañar con pan de pueblo bien crujiente.'
+            },
+            {
+                id: '3',
+                nombre: 'Queso Artesanal de Oveja Curado',
+                categoria: 'Lácteos Artesanales',
+                precio: 16.90,
+                formato: 'Cuña de ~500g',
+                imagen: 'https://images.unsplash.com/photo-1452195100486-9cc805987862?q=80&w=800&auto=format&fit=crop',
+                historia: 'Elaborado exclusivamente con leche cruda de ovejas segureñas que pastan libremente por las laderas del macizo de la Sagra. Madurado lentamente en cueva natural durante al menos 8 meses, bañando su corteza en aceite de oliva virgen extra. Presenta un sabor intenso, picantito y aterciopelado.',
+                ingredientes: '100% Leche cruda de oveja de la Sagra, cuajo natural, sal y corteza embadurnada en AOVE.',
+                maridaje: 'Acompañar con Miel pura de la Sagra y frutos secos locales.'
+            },
+            {
+                id: '4',
+                nombre: 'Miel Pura de Alta Montaña (La Sagra)',
+                categoria: 'Apicultura de Montaña',
+                precio: 8.50,
+                formato: 'Tarro de Cristal 1kg',
+                imagen: 'https://images.unsplash.com/photo-1587049352846-4a222e784d38?q=80&w=800&auto=format&fit=crop',
+                historia: 'Cosechada por apicultores locales a más de 1.300 metros de altitud. Las colmenas se alimentan de la floración silvestre de tomillo, romero, lavanda y ajedrea que crecen en el ecosistema protegido de la Sierra de la Sagra. Miel sin pasteurizar ni filtrar, rica en propiedades antioxidantes.',
+                ingredientes: '100% Miel de flores de alta montaña sin procesar.',
+                maridaje: 'Perfecta para endulzar infusiones, sobre queso curado de oveja o en tostadas.'
+            },
+            {
+                id: '5',
+                nombre: 'Aceite de Oliva Virgen Extra Centenario',
+                categoria: 'Oro Líquido',
+                precio: 32.00,
+                formato: 'Garrafa 3 Litros',
+                imagen: 'https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?q=80&w=800&auto=format&fit=crop',
+                historia: 'Proveniente de olivos centenarios cultivados en terrazas de alta montaña en el término de Puebla de Don Fadrique. Su extracción en frío el mismo día de la recolección manual conserva un aroma frutado intenso con notas a hierba fresca, almendra verde y tomillo.',
+                ingredientes: 'Aceite de oliva categoría superior obtenido directamente de aceitunas mediante procedimientos mecánicos.',
+                maridaje: 'Ideal para tostadas mañaneras, ensaladas y aliños en crudo.'
+            },
+            {
+                id: '6',
+                nombre: 'Licor de Colodra y Miel',
+                categoria: 'Licores Tradicionales',
+                precio: 13.20,
+                formato: 'Botella de Cristal 70cl',
+                imagen: 'https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=800&auto=format&fit=crop',
+                historia: 'La "colodra" es el vaso o recipiente tallado en asta de buey usado por los antiguos pastores. Este licor digestivo artesanal se obtiene mediante la maceración de hierbas aromáticas autóctonas recolectadas en la sierra junto con la miel pura de la Sagra. Un digestivo reconfortante para las sobremesas invernales.',
+                ingredientes: 'Aguardiente macerado con manzanilla de monte, menta poleo, tomillo, canela y Miel de la Sagra.',
+                maridaje: 'Servir muy frío o con hielo al finalizar una comida abundante.'
+            }
+        ];
+
+        // Estado del Carrito
+        let carrito = [];
+
+        // Inicializar Renderizado
+        document.addEventListener('DOMContentLoaded', () => {
+            renderProducts();
+        });
+
+        // Renderizar Tarjetas de Productos
+        function renderProducts() {
+            const grid = document.getElementById('products-grid');
+            grid.innerHTML = productos.map(prod => `
+                <div class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-sagra-madera/10 flex flex-col group">
+                    <div class="relative h-56 overflow-hidden cursor-pointer" onclick="openProductModal('${prod.id}')">
+                        <img src="${prod.imagen}" alt="${prod.nombre}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute top-3 left-3 bg-sagra-olivaDark/80 backdrop-blur-md text-sagra-dorado text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                            ${prod.categoria}
+                        </div>
+                        <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white font-medium text-sm">
+                            <span class="bg-sagra-terracota/90 px-4 py-2 rounded-lg backdrop-blur-sm shadow-md">
+                                <i class="fa-solid fa-book-open mr-1"></i> Leer Historia
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
+                        <div>
+                            <h3 class="font-titulo text-xl font-bold text-sagra-olivaDark group-hover:text-sagra-terracota transition-colors cursor-pointer" onclick="openProductModal('${prod.id}')">
+                                ${prod.nombre}
+                            </h3>
+                            <p class="text-xs text-sagra-madera font-semibold mt-1">${prod.formato}</p>
+                            <p class="text-xs text-sagra-olivaDark/70 mt-2 line-clamp-2">${prod.historia}</p>
+                        </div>
+
+                        <div class="pt-4 border-t border-sagra-crema flex items-center justify-between">
+                            <div>
+                                <span class="text-2xl font-bold text-sagra-olivaDark font-titulo">${prod.precio.toFixed(2)} €</span>
+                            </div>
+                            <button onclick="addToCart('${prod.id}')" class="px-4 py-2.5 bg-sagra-oliva hover:bg-sagra-terracota text-white text-sm font-semibold rounded-xl transition-colors duration-300 shadow-sm flex items-center space-x-1.5">
+                                <i class="fa-solid fa-plus text-xs"></i>
+                                <span>Añadir</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Modal de Historia de Producto
+        function openProductModal(productId) {
+            const prod = productos.find(p => p.id === productId);
+            if (!prod) return;
+
+            document.getElementById('modal-img').src = prod.imagen;
+            document.getElementById('modal-category').innerText = prod.categoria;
+            document.getElementById('modal-title').innerText = prod.nombre;
+            document.getElementById('modal-history').innerText = prod.historia;
+            document.getElementById('modal-ingredients').innerText = prod.ingredientes;
+            document.getElementById('modal-pairing').innerText = prod.maridaje;
+            document.getElementById('modal-price').innerText = `${prod.precio.toFixed(2)} €`;
+
+            const addBtn = document.getElementById('modal-add-btn');
+            addBtn.onclick = () => {
+                addToCart(prod.id);
+                closeProductModal();
+            };
+
+            document.getElementById('product-modal').classList.remove('hidden');
+        }
+
+        function closeProductModal() {
+            document.getElementById('product-modal').classList.add('hidden');
+        }
+
+        // Lógica de Carrito
+        function addToCart(productId) {
+            const prod = productos.find(p => p.id === productId);
+            const itemInCart = carrito.find(item => item.id === productId);
+
+            if (itemInCart) {
+                itemInCart.cantidad += 1;
+            } else {
+                carrito.push({ ...prod, cantidad: 1 });
+            }
+
+            updateCartUI();
+            showToast(`Añadido: ${prod.nombre}`);
+        }
+
+        function updateQuantity(productId, delta) {
+            const item = carrito.find(i => i.id === productId);
+            if (!item) return;
+
+            item.cantidad += delta;
+            if (item.cantidad <= 0) {
+                carrito = carrito.filter(i => i.id !== productId);
+            }
+            updateCartUI();
+        }
+
+        function removeFromCart(productId) {
+            carrito = carrito.filter(i => i.id !== productId);
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const totalCount = carrito.reduce((acc, i) => acc + i.cantidad, 0);
+            document.getElementById('cart-count').innerText = totalCount;
+
+            const cartContainer = document.getElementById('cart-items');
+            
+            if (carrito.length === 0) {
+                cartContainer.innerHTML = `
+                    <div class="text-center py-12 text-sagra-olivaDark/50">
+                        <i class="fa-solid fa-basket-shopping text-4xl mb-3"></i>
+                        <p class="text-sm">Tu cesta de productos de la Sagra está vacía.</p>
+                    </div>
+                `;
+            } else {
+                cartContainer.innerHTML = carrito.map(item => `
+                    <div class="flex items-center justify-between bg-white p-3.5 rounded-xl border border-sagra-madera/10 shadow-sm">
+                        <div class="flex items-center space-x-3">
+                            <img src="${item.imagen}" class="w-12 h-12 rounded-lg object-cover">
+                            <div>
+                                <h4 class="text-xs font-bold text-sagra-olivaDark max-w-[130px] truncate">${item.nombre}</h4>
+                                <span class="text-xs font-semibold text-sagra-terracota">${(item.precio * item.cantidad).toFixed(2)} €</span>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center space-x-2">
+                            <button onclick="updateQuantity('${item.id}', -1)" class="w-7 h-7 rounded-lg bg-sagra-crema hover:bg-sagra-madera/20 flex items-center justify-center text-xs text-sagra-olivaDark">
+                                <i class="fa-solid fa-minus"></i>
+                            </button>
+                            <span class="text-xs font-bold w-4 text-center">${item.cantidad}</span>
+                            <button onclick="updateQuantity('${item.id}', 1)" class="w-7 h-7 rounded-lg bg-sagra-crema hover:bg-sagra-madera/20 flex items-center justify-center text-xs text-sagra-olivaDark">
+                                <i class="fa-solid fa-plus"></i>
+                            </button>
+                            <button onclick="removeFromCart('${item.id}')" class="text-sagra-terracota/60 hover:text-sagra-terracota ml-1 p-1">
+                                <i class="fa-solid fa-trash-can text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            const totalSum = carrito.reduce((acc, i) => acc + (i.precio * i.cantidad), 0);
+            document.getElementById('cart-total').innerText = `${totalSum.toFixed(2)} €`;
+        }
+
+        function toggleCart() {
+            const drawer = document.getElementById('cart-drawer');
+            drawer.classList.toggle('hidden');
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        function checkout() {
+            if (carrito.length === 0) {
+                showToast("Tu cesta está vacía. Añade productos artesanales primero.");
+                return;
+            }
+            showToast("¡Gracias por apoyar la artesanía de Puebla de Don Fadrique!");
+            carrito = [];
+            updateCartUI();
+            toggleCart();
+        }
+
+        function handleContact(e) {
+            e.preventDefault();
+            showToast("Mensaje enviado correctamente. Contactaremos pronto contigo.");
+            e.target.reset();
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-message').innerText = message;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            
+            setTimeout(() => {
+                toast.classList.
